@@ -1,50 +1,40 @@
 import React, {Component} from 'react'
-import styled from 'styled-components'
 
 import Box from './components/Box'
 import ProgressBar from './components/ProgressBar'
-
-import gem from './gemLegendary.png'
-
-const Gems = styled.div`
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-between;
-`
+import PackOpener from './components/PackOpener'
 
 class App extends Component {
+  state = {
+    set: 'Witchwood',
+    pack: [
+      {rarity: 'common', golden: true},
+      {rarity: 'common', golden: false},
+      {rarity: 'rare', golden: false},
+      {rarity: 'epic', golden: false},
+      {rarity: 'legendary', golden: false},
+    ],
+  }
+
   render() {
     return (
       <div>
         <Box title="Add a pack">
-          This is where the content goes
-          <ProgressBar rarity="common" numerator={0} denominator={40} />
-          <ProgressBar rarity="common" numerator={1} denominator={40} />
-          <ProgressBar rarity="rare" numerator={2} denominator={100} />
-          <ProgressBar rarity="rare" numerator={3} denominator={100} />
-          <ProgressBar rarity="rare" numerator={4} denominator={100} />
-          <ProgressBar rarity="rare" numerator={5} denominator={100} />
-          <ProgressBar rarity="epic" numerator={10} denominator={100} />
-          <ProgressBar rarity="epic" numerator={20} denominator={100} />
-          <ProgressBar rarity="epic" numerator={30} denominator={100} />
-          <ProgressBar rarity="epic" numerator={40} denominator={40} />
-          <ProgressBar rarity="epic" numerator={50} denominator={100} />
-          <ProgressBar rarity="epic" numerator={60} denominator={100} />
-          <ProgressBar rarity="epic" numerator={60} denominator={100} />
-          <ProgressBar rarity="epic" numerator={70} denominator={100} />
-          <ProgressBar rarity="epic" numerator={80} denominator={100} />
-          <ProgressBar rarity="epic" numerator={90} denominator={100} />
-          <ProgressBar rarity="legendary" numerator={95} denominator={100} />
-          <ProgressBar rarity="legendary" numerator={99} denominator={100} />
-          <ProgressBar rarity="legendary" numerator={100} denominator={40} />
-          <ProgressBar rarity="legendary" numerator={100} denominator={40} />
-          <Gems>
-            <img src={gem} alt="gem" />
-            <img src={gem} alt="gem" />
-            <img src={gem} alt="gem" />
-            <img src={gem} alt="gem" />
-            <img src={gem} alt="gem" />
-          </Gems>
+          <p>Submit a new pack opening</p>
+          <PackOpener
+            pack={this.state.pack}
+            onGemClick={index => console.log(`Gem at index ${index} clicked`)}
+            set={this.state.set}
+            onSetClick={() => console.log('set icon clicked')}
+          />
+        </Box>
+
+        <Box title="Timers">
+          <p>
+            Indicators for when you will open your next Epic or Legendary card
+          </p>
+          <ProgressBar rarity="legendary" numerator={12} denominator={40} />
+          <ProgressBar rarity="epic" numerator={9} denominator={10} />
         </Box>
       </div>
     )

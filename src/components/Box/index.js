@@ -21,6 +21,7 @@ const segmentHeight = 109
 const Box = styled.div`
   font-family: merriweather, serif;
   line-height: 22px;
+  margin: 20px 5px;
 `
 
 const BoxSegment = styled.div`
