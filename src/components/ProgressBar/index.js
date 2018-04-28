@@ -2,10 +2,20 @@ import React from 'react'
 import styled from 'styled-components'
 
 import headCommon from './head-common.png'
+import headRare from './head-rare.png'
+import headEpic from './head-epic.png'
+import headLegendary from './head-legendary.png'
 import bar from './bar.png'
 import indicator from './indicator.png'
 import empty from './bar-empty.png'
 import cap from './bar-cap.png'
+
+const headGems = {
+  common: headCommon,
+  rare: headRare,
+  epic: headEpic,
+  legendary: headLegendary,
+}
 
 const height = 79
 
@@ -15,7 +25,7 @@ const Wrapper = styled.div`
 `
 
 const Head = styled.div`
-  background-image: url(${headCommon});
+  background-image: url(${props => headGems[props.rarity]});
   width: 66px;
   flex-shrink: 0;
   z-index: 1;
