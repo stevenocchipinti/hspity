@@ -13,6 +13,14 @@ const Button = styled.button`
   padding: 15px 30px 0 0;
   text-align: right;
   font-size: 24px;
+  margin: 10px auto;
+  outline: none;
+
+  &:focus {
+    filter: drop-shadow(0 0 2px dodgerblue) drop-shadow(0 0 2px dodgerblue)
+      drop-shadow(0 0 2px dodgerblue) drop-shadow(0 0 2px dodgerblue)
+      drop-shadow(0 0 2px dodgerblue);
+  }
 `
 
 const CardButton = ({children, onClick}) => (

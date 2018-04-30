@@ -90,6 +90,9 @@ const Body = styled.div`
   padding: 30px 15px 15px;
   margin-top: -50px;
   margin-bottom: -70px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 `
 
 const FancyBox = ({title, children}) => (

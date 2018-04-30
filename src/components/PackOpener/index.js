@@ -9,12 +9,25 @@ import legendary from './rarity-legendary.png'
 const gems = {common, rare, epic, legendary}
 
 const Gems = styled.div`
-  margin-top: 20px;
+  margin: 20px auto;
   display: flex;
   justify-content: space-around;
 `
 
-const Gem = styled.img`
+const Gem = styled.button`
+  width: 42px;
+  height: 58px;
+  background-image: url(${props => gems[props.rarity]});
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+
+  &:focus {
+    outline: dashed 5px dodgerblue;
+    outline-offset: 10px;
+  }
+
+  filter: drop-shadow(0 0 10px pink);
+
   ${props =>
     props.golden
       ? `filter:
@@ -30,7 +43,6 @@ const PackOpener = props => (
       {props.pack.map(({rarity, golden}, i) => (
         <Gem
           key={i}
-          src={gems[rarity]}
           alt={rarity}
           golden={golden}
           rarity={rarity}

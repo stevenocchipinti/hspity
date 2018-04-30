@@ -22,6 +22,7 @@ const height = 79
 const Wrapper = styled.div`
   display: flex;
   height: ${height}px;
+  position: relative;
 `
 
 const Head = styled.div`
@@ -53,6 +54,16 @@ const Cap = styled.div`
   margin-left: -7px;
 `
 
+const Text = styled.div`
+  position: absolute;
+  line-height: 70px;
+  z-index: 1;
+  width: 100%;
+  text-align: center;
+  padding-left: 66px;
+  padding-right: 20px;
+`
+
 const ProgressBar = ({rarity, numerator, denominator}) => {
   const percentage = Math.abs(numerator / denominator)
 
@@ -63,9 +74,9 @@ const ProgressBar = ({rarity, numerator, denominator}) => {
       <Indicator visible={percentage < 1} />
       <EmptyBar percentage={1 - percentage} />
       <Cap />
-      <div style={{width: 60}}>
+      <Text>
         {numerator} / {denominator}
-      </div>
+      </Text>
     </Wrapper>
   )
 }

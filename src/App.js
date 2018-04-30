@@ -9,7 +9,7 @@ class App extends Component {
   state = {
     set: 'Witchwood',
     pack: [
-      {rarity: 'common', golden: false},
+      {rarity: 'common', golden: true},
       {rarity: 'common', golden: false},
       {rarity: 'common', golden: false},
       {rarity: 'common', golden: false},
@@ -21,7 +21,7 @@ class App extends Component {
     return (
       <div>
         <Box title="Add a pack">
-          <p>Submit a new pack opening</p>
+          <p>Submit the rarity of the cards in the pack you just opened</p>
           <PackOpener
             pack={this.state.pack}
             onGemClick={index => console.log(`Gem at index ${index} clicked`)}
