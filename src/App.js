@@ -3,16 +3,17 @@ import React, {Component} from 'react'
 import Box from './components/Box'
 import ProgressBar from './components/ProgressBar'
 import PackOpener from './components/PackOpener'
+import CardButton from './components/CardButton'
 
 class App extends Component {
   state = {
     set: 'Witchwood',
     pack: [
-      {rarity: 'common', golden: true},
+      {rarity: 'common', golden: false},
+      {rarity: 'common', golden: false},
+      {rarity: 'common', golden: false},
       {rarity: 'common', golden: false},
       {rarity: 'rare', golden: false},
-      {rarity: 'epic', golden: false},
-      {rarity: 'legendary', golden: false},
     ],
   }
 
@@ -27,6 +28,7 @@ class App extends Component {
             set={this.state.set}
             onSetClick={() => console.log('set icon clicked')}
           />
+          <CardButton>Submit</CardButton>
         </Box>
 
         <Box title="Timers">

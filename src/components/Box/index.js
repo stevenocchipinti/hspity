@@ -14,12 +14,9 @@ import boxCornerBottomLeft from './boxCornerBottomLeft.png'
 import boxSpacerBottom from './boxSpacerBottom.png'
 import boxCornerBottomRight from './boxCornerBottomRight.png'
 
-import 'typeface-merriweather'
-
 const segmentHeight = 109
 
 const Box = styled.div`
-  font-family: merriweather, serif;
   line-height: 22px;
   margin: 20px 5px;
 `
@@ -58,13 +55,11 @@ const Title = styled.div`
   width: 231px;
   height: ${segmentHeight}px;
   line-height: 40px;
-  color: #151515;
   text-align: center;
   z-index: 1;
 `
 
 const BottomSpacer = styled.div`
-  z-index: 1;
   background-image: url(${boxSpacerBottom});
   height: ${segmentHeight}px;
   flex-grow: 1;
@@ -89,13 +84,14 @@ const RightSpacer = styled.div`
   flex-shrink: 0;
 `
 
-const Content = styled.div`
+const Body = styled.div`
   background-image: url(${velvet});
   flex-grow: 1;
   padding: 30px 15px 15px;
   margin-top: -50px;
   margin-bottom: -70px;
 `
+
 const FancyBox = ({title, children}) => (
   <Box>
     <BoxSegment>
@@ -108,7 +104,7 @@ const FancyBox = ({title, children}) => (
 
     <BoxSegment>
       <LeftSpacer />
-      <Content>{children}</Content>
+      <Body>{children}</Body>
       <RightSpacer />
     </BoxSegment>
 

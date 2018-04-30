@@ -34,6 +34,7 @@ const PackOpener = props => (
           alt={rarity}
           golden={golden}
           rarity={rarity}
+          onClick={() => props.onGemClick(i)}
         />
       ))}
     </Gems>
