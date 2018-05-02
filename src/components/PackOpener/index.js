@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import {PackButton} from '../Pack'
+
 import common from './rarity-common.png'
 import rare from './rarity-rare.png'
 import epic from './rarity-epic.png'
@@ -8,10 +10,28 @@ import legendary from './rarity-legendary.png'
 
 const gems = {common, rare, epic, legendary}
 
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  flex-direction: column;
+  margin-top: 30px;
+
+  @media (min-width: 600px) {
+    flex-direction: row;
+  }
+`
+
 const Gems = styled.div`
-  margin: 20px auto;
   display: flex;
   justify-content: space-around;
+  align-items: center;
+  flex-grow: 1;
+  margin: 40px 0 30px;
+`
+
+const FlexPack = styled(PackButton)`
+  margin: 0 auto;
 `
 
 const Gem = styled.button`
@@ -22,7 +42,7 @@ const Gem = styled.button`
   border: none;
 
   &:focus {
-    outline: dashed 5px dodgerblue;
+    outline: dashed 5px #55ffff;
     outline-offset: 10px;
   }
 
@@ -38,7 +58,8 @@ const Gem = styled.button`
 `
 
 const PackOpener = props => (
-  <div>
+  <Wrapper>
+    <FlexPack onClick={props.onSetClick} set={props.set} />
     <Gems>
       {props.pack.map(({rarity, golden}, i) => (
         <Gem
@@ -50,7 +71,7 @@ const PackOpener = props => (
         />
       ))}
     </Gems>
-  </div>
+  </Wrapper>
 )
 
 export default PackOpener

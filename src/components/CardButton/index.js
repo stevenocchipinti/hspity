@@ -1,9 +1,8 @@
-import React from 'react'
 import styled from 'styled-components'
 
 import cardButton from './CardButton.png'
 
-const Button = styled.button`
+const CardButton = styled.button`
   height: 74px;
   width: 200px;
   background-image: url(${cardButton});
@@ -17,16 +16,10 @@ const Button = styled.button`
   outline: none;
 
   &:focus {
-    filter: drop-shadow(0 0 2px dodgerblue) drop-shadow(0 0 2px dodgerblue)
-      drop-shadow(0 0 2px dodgerblue) drop-shadow(0 0 2px dodgerblue)
-      drop-shadow(0 0 2px dodgerblue);
+    filter: drop-shadow(0 0 2px #55ffff) drop-shadow(0 0 2px #55ffff)
+      drop-shadow(0 0 2px #55ffff) drop-shadow(0 0 2px #55ffff)
+      drop-shadow(0 0 2px #55ffff);
   }
 `
-
-const CardButton = ({children, onClick}) => (
-  <Button width={200} onClick={onClick}>
-    {children}
-  </Button>
-)
 
 export default CardButton

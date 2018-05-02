@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 
 import Box from './components/Box'
-import ProgressBar from './components/ProgressBar'
+import Timer from './components/Timer'
 import PackOpener from './components/PackOpener'
 import CardButton from './components/CardButton'
 
 class App extends Component {
   state = {
-    set: 'Witchwood',
+    set: 'theWitchwood',
     pack: [
       {rarity: 'common', golden: true},
       {rarity: 'common', golden: false},
@@ -15,19 +15,29 @@ class App extends Component {
       {rarity: 'common', golden: false},
       {rarity: 'rare', golden: false},
     ],
+    timers: {
+      theWitchwood: {legendary: 38, epic: 0},
+      classic: {legendary: 0, epic: 4},
+      kobaldsAndCatacombs: {legendary: 14, epic: 0},
+      knightsOfTheFrozenThrone: {legendary: 30, epic: 9},
+      journeyToUngoro: {legendary: 1, epic: 5},
+    },
   }
 
   render() {
+    const {pack, set, timers} = this.state
+
     return (
       <div>
         <Box title="Add a pack">
           <p>Submit the rarity of the cards in the pack you just opened</p>
           <PackOpener
-            pack={this.state.pack}
+            pack={pack}
             onGemClick={index => console.log(`Gem at index ${index} clicked`)}
-            set={this.state.set}
+            set={set}
             onSetClick={() => console.log('set icon clicked')}
           />
+
           <CardButton>Submit</CardButton>
         </Box>
 
@@ -35,8 +45,15 @@ class App extends Component {
           <p>
             Indicators for when you will open your next Epic or Legendary card
           </p>
-          <ProgressBar rarity="legendary" numerator={12} denominator={40} />
-          <ProgressBar rarity="epic" numerator={9} denominator={10} />
+
+          {Object.keys(timers).map((set, i) => (
+            <Timer
+              key={i}
+              set={set}
+              legendariesOpened={timers[set].legendary}
+              epicsOpened={timers[set].epic}
+            />
+          ))}
         </Box>
       </div>
     )
