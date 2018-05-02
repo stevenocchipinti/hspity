@@ -1,9 +1,15 @@
 import React, {Component} from 'react'
+import styled from 'styled-components'
 
 import Box from './components/Box'
 import Timer from './components/Timer'
 import PackOpener from './components/PackOpener'
 import CardButton from './components/CardButton'
+
+const Wrapper = styled.div`
+  max-width: 1000px;
+  margin: 0 auto;
+`
 
 class App extends Component {
   state = {
@@ -28,7 +34,7 @@ class App extends Component {
     const {pack, set, timers} = this.state
 
     return (
-      <div>
+      <Wrapper>
         <Box title="Add a pack">
           <p>Submit the rarity of the cards in the pack you just opened</p>
           <PackOpener
@@ -55,7 +61,7 @@ class App extends Component {
             />
           ))}
         </Box>
-      </div>
+      </Wrapper>
     )
   }
 }
