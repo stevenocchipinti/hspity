@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component, createRef} from 'react'
 import styled from 'styled-components'
 
 import {PackButton} from '../Pack'
@@ -57,21 +57,36 @@ const Gem = styled.button`
       : 'inherit'};
 `
 
-const PackOpener = props => (
-  <Wrapper>
-    <FlexPack onClick={props.onSetClick} set={props.set} />
-    <Gems>
-      {props.pack.map(({rarity, golden}, i) => (
-        <Gem
-          key={i}
-          alt={rarity}
-          golden={golden}
-          rarity={rarity}
-          onClick={() => props.onGemClick(i)}
-        />
-      ))}
-    </Gems>
-  </Wrapper>
-)
+class PackOpener extends Component {
+  constructor(props) {
+    super(props)
+    this.packButton = createRef()
+  }
+
+  componentDidMount() {
+    this.packButton.current.focus()
+  }
+
+  render() {
+    const {onSetClick, set, pack, onGemClick} = this.props
+
+    return (
+      <Wrapper>
+        <FlexPack innerRef={this.packButton} onClick={onSetClick} set={set} />
+        <Gems>
+          {pack.map(({rarity, golden}, i) => (
+            <Gem
+              key={i}
+              alt={rarity}
+              golden={golden}
+              rarity={rarity}
+              onClick={() => onGemClick(i)}
+            />
+          ))}
+        </Gems>
+      </Wrapper>
+    )
+  }
+}
 
 export default PackOpener
