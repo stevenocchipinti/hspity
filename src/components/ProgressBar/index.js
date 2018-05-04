@@ -49,7 +49,7 @@ const Smoke = styled.div`
   background-image: url(${smoke});
   height: 560px;
   width: 5076px;
-  animation: slide 60s linear infinite;
+  animation: slide 120s linear infinite;
   @keyframes slide {
     0% {
       transform: translate3d(-1692px, 0, 0);
