@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import styled from 'styled-components'
 
+import Homepage from './components/Homepage'
 import Box from './components/Box'
 import Timer from './components/Timer'
 import PackOpener from './components/PackOpener'
@@ -28,10 +29,14 @@ class App extends Component {
       knightsOfTheFrozenThrone: {legendary: 30, epic: 9},
       journeyToUngoro: {legendary: 1, epic: 5},
     },
+    loggedIn: false,
   }
 
   render() {
-    const {pack, set, timers} = this.state
+    const {loggedIn, pack, set, timers} = this.state
+
+    if (!loggedIn)
+      return <Homepage onClick={() => this.setState({loggedIn: true})} />
 
     return (
       <Wrapper>

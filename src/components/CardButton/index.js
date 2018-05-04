@@ -7,7 +7,7 @@ const CardButton = styled.button`
   width: 200px;
   background-image: url(${cardButton});
   background-color: rgba(0, 0, 0, 0);
-  background-size: cover;
+  background-size: contain;
   border: none;
   padding: 15px 30px 0 0;
   text-align: right;
