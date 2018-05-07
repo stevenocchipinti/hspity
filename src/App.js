@@ -8,29 +8,36 @@ import Timer from './components/Timer'
 import PackOpener from './components/PackOpener'
 import CardButton from './components/CardButton'
 
+import {defaultPack, incrementSetIndex, incrementCardRarity} from './pack'
+
 const Wrapper = styled.div`
   max-width: 1000px;
   margin: 0 auto;
 `
 
+const sets = [
+  'theWitchwood',
+  'classic',
+  'kobaldsAndCatacombs',
+  'knightsOfTheFrozenThrone',
+  'journeyToUngoro',
+]
+
 class App extends Component {
-  state = {
-    set: 'theWitchwood',
-    pack: [
-      {rarity: 'common', golden: true},
-      {rarity: 'common', golden: false},
-      {rarity: 'common', golden: false},
-      {rarity: 'common', golden: false},
-      {rarity: 'rare', golden: false},
-    ],
-    timers: {
-      theWitchwood: {legendary: 38, epic: 0},
-      classic: {legendary: 0, epic: 4},
-      kobaldsAndCatacombs: {legendary: 14, epic: 0},
-      knightsOfTheFrozenThrone: {legendary: 30, epic: 9},
-      journeyToUngoro: {legendary: 1, epic: 5},
-    },
-    user: null,
+  constructor(props) {
+    super(props)
+    this.state = {
+      setIndex: 0,
+      pack: defaultPack,
+      timers: {
+        theWitchwood: {legendary: 38, epic: 0},
+        classic: {legendary: 0, epic: 4},
+        kobaldsAndCatacombs: {legendary: 14, epic: 0},
+        knightsOfTheFrozenThrone: {legendary: 30, epic: 9},
+        journeyToUngoro: {legendary: 1, epic: 5},
+      },
+      user: null,
+    }
   }
 
   componentDidMount() {
@@ -41,8 +48,18 @@ class App extends Component {
     Firebase.auth().signInWithRedirect(new Firebase.auth.GoogleAuthProvider())
   }
 
+  incrementSet() {
+    this.setState({
+      setIndex: incrementSetIndex(sets.length, this.state.setIndex),
+    })
+  }
+
+  incrementRarity(index) {
+    this.setState({pack: incrementCardRarity(this.state.pack, index)})
+  }
+
   render() {
-    const {user, pack, set, timers} = this.state
+    const {user, pack, setIndex, timers} = this.state
 
     if (!user) return <Homepage onClick={() => this.login()} />
 
@@ -52,9 +69,9 @@ class App extends Component {
           <p>Submit the rarity of the cards in the pack you just opened</p>
           <PackOpener
             pack={pack}
-            onGemClick={index => console.log(`Gem at index ${index} clicked`)}
-            set={set}
-            onSetClick={() => console.log('set icon clicked')}
+            onGemClick={index => this.incrementRarity(index)}
+            set={sets[setIndex]}
+            onSetClick={() => this.incrementSet()}
           />
 
           <CardButton>Submit</CardButton>
