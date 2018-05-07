@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import styled from 'styled-components'
+import Firebase from 'firebase'
 
 import Homepage from './components/Homepage'
 import Box from './components/Box'
@@ -29,14 +30,21 @@ class App extends Component {
       knightsOfTheFrozenThrone: {legendary: 30, epic: 9},
       journeyToUngoro: {legendary: 1, epic: 5},
     },
-    loggedIn: false,
+    user: null,
+  }
+
+  componentDidMount() {
+    Firebase.auth().onAuthStateChanged(user => user && this.setState({user}))
+  }
+
+  login() {
+    Firebase.auth().signInWithRedirect(new Firebase.auth.GoogleAuthProvider())
   }
 
   render() {
-    const {loggedIn, pack, set, timers} = this.state
+    const {user, pack, set, timers} = this.state
 
-    if (!loggedIn)
-      return <Homepage onClick={() => this.setState({loggedIn: true})} />
+    if (!user) return <Homepage onClick={() => this.login()} />
 
     return (
       <Wrapper>
