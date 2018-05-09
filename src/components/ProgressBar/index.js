@@ -75,6 +75,7 @@ const Cap = styled.div`
   background-image: url(${cap});
   width: 25px;
   margin-left: -7px;
+  z-index: 1;
 `
 
 const Text = styled.div`
