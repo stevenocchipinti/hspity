@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import styled from 'styled-components'
 import Firebase from 'firebase'
+import 'firebase/firestore'
 
 import Homepage from './components/Homepage'
 import Box from './components/Box'
@@ -8,7 +9,13 @@ import Timer from './components/Timer'
 import PackOpener from './components/PackOpener'
 import CardButton from './components/CardButton'
 
-import {defaultPack, incrementSetIndex, incrementCardRarity} from './pack'
+import {
+  defaultPack,
+  incrementSetIndex,
+  incrementCardRarity,
+} from './helpers/pack'
+
+import {addPackToTimers} from './helpers/timers'
 
 const Wrapper = styled.div`
   max-width: 1000px;
@@ -24,24 +31,31 @@ const sets = [
 ]
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      setIndex: 0,
-      pack: defaultPack,
-      timers: {
-        theWitchwood: {legendary: 38, epic: 0},
-        classic: {legendary: 0, epic: 4},
-        kobaldsAndCatacombs: {legendary: 14, epic: 0},
-        knightsOfTheFrozenThrone: {legendary: 30, epic: 9},
-        journeyToUngoro: {legendary: 1, epic: 5},
-      },
-      user: null,
-    }
+  state = {
+    setIndex: 0,
+    pack: defaultPack,
+    timers: sets.reduce((timers, set) => {
+      timers[set] = {legendary: 0, epic: 0}
+      return timers
+    }, {}),
+    user: null,
   }
 
   componentDidMount() {
-    Firebase.auth().onAuthStateChanged(user => user && this.setState({user}))
+    Firebase.firestore().settings({timestampsInSnapshots: true})
+    Firebase.auth().onAuthStateChanged(user => {
+      if (!user) return
+      this.setState({user})
+      this.firestoreRef = Firebase.firestore().doc(`users/${user.uid}`)
+      this.firestoreRef.onSnapshot(doc =>
+        this.setState({
+          timers: {
+            ...this.state.timers,
+            ...(doc.data() ? doc.data().timers : {}),
+          },
+        }),
+      )
+    })
   }
 
   login() {
@@ -56,6 +70,13 @@ class App extends Component {
 
   incrementRarity(index) {
     this.setState({pack: incrementCardRarity(this.state.pack, index)})
+  }
+
+  submit() {
+    const {timers, pack, setIndex} = this.state
+    const newTimers = addPackToTimers(timers, pack, sets[setIndex])
+    this.firestoreRef.set({timers: newTimers}, {merge: true})
+    this.setState({pack: defaultPack})
   }
 
   render() {
@@ -74,7 +95,7 @@ class App extends Component {
             onSetClick={() => this.incrementSet()}
           />
 
-          <CardButton>Submit</CardButton>
+          <CardButton onClick={() => this.submit()}>Submit</CardButton>
         </Box>
 
         <Box title="Timers">
@@ -82,12 +103,12 @@ class App extends Component {
             Indicators for when you will open your next Epic or Legendary card
           </p>
 
-          {Object.keys(timers).map((set, i) => (
+          {sets.map((set, i) => (
             <Timer
               key={i}
               set={set}
-              legendariesOpened={timers[set].legendary}
-              epicsOpened={timers[set].epic}
+              legendariesOpened={timers[set] ? timers[set].legendary : 0}
+              epicsOpened={timers[set] ? timers[set].epic : 0}
             />
           ))}
         </Box>

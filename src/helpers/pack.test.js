@@ -1,4 +1,4 @@
-import {incrementSetIndex, incrementCardRarity} from '.'
+import {incrementSetIndex, incrementCardRarity} from './pack'
 
 const common = {rarity: 'common', golden: false}
 const rare = {rarity: 'rare', golden: false}
