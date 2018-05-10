@@ -38,14 +38,16 @@ class App extends Component {
       timers[set] = {legendary: 0, epic: 0}
       return timers
     }, {}),
+    loading: !!JSON.parse(localStorage.getItem('loggedIn')),
     user: null,
   }
 
   componentDidMount() {
     Firebase.firestore().settings({timestampsInSnapshots: true})
     Firebase.auth().onAuthStateChanged(user => {
+      localStorage.setItem('loggedIn', !!user)
       if (!user) return
-      this.setState({user})
+      this.setState({user, loading: false})
       this.firestoreRef = Firebase.firestore().doc(`users/${user.uid}`)
       this.firestoreRef.onSnapshot(doc =>
         this.setState({
@@ -60,6 +62,8 @@ class App extends Component {
 
   login() {
     Firebase.auth().signInWithRedirect(new Firebase.auth.GoogleAuthProvider())
+    localStorage.setItem('loggedIn', true)
+    this.setState({loading: true})
   }
 
   incrementSet() {
@@ -82,7 +86,10 @@ class App extends Component {
   render() {
     const {user, pack, setIndex, timers} = this.state
 
-    if (!user) return <Homepage onClick={() => this.login()} />
+    if (!user)
+      return (
+        <Homepage onClick={() => this.login()} loading={this.state.loading} />
+      )
 
     return (
       <Wrapper>

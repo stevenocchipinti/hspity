@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import SubmitButton from '../SubmitButton'
+import CircularProgress from '../CircularProgress'
 
 import heading from './heading.png'
 import parchment from './parchment.png'
@@ -50,8 +51,35 @@ const Wrapper = styled.div`
   }
 `
 
-const Homepage = ({onClick}) => (
+const Overlay = styled.div`
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  visibility: ${props => (props.visible ? 'visible' : 'hidden')};
+  opacity: ${props => (props.visible ? 1 : 0)};
+  z-index: ${props => (props.visible ? 1 : 0)};
+  transition: opacity 0.5s ease-in-out;
+`
+
+const LoadingMessage = styled.div`
+  margin: 20px 0;
+`
+
+const Loading = ({visible}) => (
+  <Overlay visible={visible}>
+    <CircularProgress />
+    <LoadingMessage>Loading...</LoadingMessage>
+  </Overlay>
+)
+
+const Homepage = ({onClick, loading}) => (
   <Wrapper>
+    <Loading visible={loading} />
     <Heading src={heading} alt="HS Pity" />
     <Parchment>
       Track your pack openings to predict your next legendary!
