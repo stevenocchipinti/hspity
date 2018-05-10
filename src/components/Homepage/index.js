@@ -30,7 +30,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   position: relative;
   justify-content: space-around;
