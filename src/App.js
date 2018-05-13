@@ -22,6 +22,17 @@ const Wrapper = styled.div`
   margin: 0 auto;
 `
 
+const TimerSection = styled.div`
+  margin: 25px;
+`
+
+const TimerGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  row-gap: 50px;
+  column-gap: 30px;
+`
+
 const sets = [
   'theWitchwood',
   'classic',
@@ -105,20 +116,22 @@ class App extends Component {
           <CardButton onClick={() => this.submit()}>Submit</CardButton>
         </Box>
 
-        <Box title="Timers">
+        <TimerSection>
           <p>
             Indicators for when you will open your next Epic or Legendary card
           </p>
 
-          {sets.map((set, i) => (
-            <Timer
-              key={i}
-              set={set}
-              legendariesOpened={timers[set] ? timers[set].legendary : 0}
-              epicsOpened={timers[set] ? timers[set].epic : 0}
-            />
-          ))}
-        </Box>
+          <TimerGrid>
+            {sets.map((set, i) => (
+              <Timer
+                key={i}
+                set={set}
+                legendariesOpened={timers[set] ? timers[set].legendary : 0}
+                epicsOpened={timers[set] ? timers[set].epic : 0}
+              />
+            ))}
+          </TimerGrid>
+        </TimerSection>
       </Wrapper>
     )
   }

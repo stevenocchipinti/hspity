@@ -15,18 +15,21 @@ const sets = {
   theWitchwood,
 }
 
+// Based on the pack image dimensions
+const ASPECT_RATIO = 361 / 250
+
 const Img = styled.img`
-  height: 290px;
-  width: 200px;
+  height: ${props => (props.width || 200) * ASPECT_RATIO}px;
+  width: ${props => props.width || 200}px;
 `
 
-const PackImage = ({className, set}) => (
-  <Img className={className} src={sets[set]} alt={set} />
+const PackImage = ({className, set, width}) => (
+  <Img className={className} src={sets[set]} alt={set} width={width} />
 )
 
 const PackButton = styled.button`
-  height: 290px;
-  width: 200px;
+  height: ${props => (props.width || 200) * ASPECT_RATIO}px;
+  width: ${props => props.width || 200}px;
   background-image: url(${props => sets[props.set]});
   background-color: rgba(0, 0, 0, 0);
   background-size: cover;

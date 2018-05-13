@@ -100,9 +100,7 @@ const ProgressBar = ({rarity, numerator, denominator}) => {
       <Indicator visible={percentage < 1} />
       <EmptyBar percentage={1 - percentage} />
       <Cap />
-      <Text>
-        {numerator} / {denominator}
-      </Text>
+      <Text>{denominator - numerator} left</Text>
     </Wrapper>
   )
 }

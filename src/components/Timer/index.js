@@ -10,7 +10,6 @@ const EPIC_TIMER = 10
 const Wrapper = styled.div`
   display: grid;
   grid-gap: 15px;
-  margin: 30px 0;
   align-items: center;
 
   grid-template-areas:
@@ -18,12 +17,10 @@ const Wrapper = styled.div`
     'legendaries'
     'epics';
 
-  @media (min-width: 600px) {
-    grid-template-columns: 200px auto;
-    grid-template-areas:
-      'pack legendaries'
-      'pack epics';
-  }
+  grid-template-columns: 120px auto;
+  grid-template-areas:
+    'pack legendaries'
+    'pack epics';
 `
 
 const GridPack = styled(PackImage)`
@@ -43,7 +40,7 @@ const GridEpics = styled(ProgressBar)`
 
 const Timer = ({set, legendariesOpened, epicsOpened}) => (
   <Wrapper>
-    <GridPack set={set} />
+    <GridPack set={set} width={120} />
     <GridLegendaries
       rarity="legendary"
       numerator={legendariesOpened}
