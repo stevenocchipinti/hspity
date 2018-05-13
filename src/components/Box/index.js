@@ -16,7 +16,7 @@ import boxCornerBottomRight from './boxCornerBottomRight.png'
 
 const segmentHeight = 109
 
-const Box = styled.div`
+const Box = styled.section`
   line-height: 22px;
   margin: 20px 5px;
 `

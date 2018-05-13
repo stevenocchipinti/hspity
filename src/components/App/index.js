@@ -3,34 +3,21 @@ import styled from 'styled-components'
 import Firebase from 'firebase'
 import 'firebase/firestore'
 
-import Homepage from './components/Homepage'
-import Box from './components/Box'
-import Timer from './components/Timer'
-import PackOpener from './components/PackOpener'
-import CardButton from './components/CardButton'
+import Homepage from '../Homepage'
+import InputSection from './InputSection'
+import TimerSection from './TimerSection'
 
 import {
   defaultPack,
   incrementSetIndex,
   incrementCardRarity,
-} from './helpers/pack'
+} from '../../helpers/pack'
 
-import {addPackToTimers} from './helpers/timers'
+import {addPackToTimers} from '../../helpers/timers'
 
 const Wrapper = styled.div`
   max-width: 1000px;
   margin: 0 auto;
-`
-
-const TimerSection = styled.div`
-  margin: 25px;
-`
-
-const TimerGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  row-gap: 50px;
-  column-gap: 30px;
 `
 
 const sets = [
@@ -104,34 +91,15 @@ class App extends Component {
 
     return (
       <Wrapper>
-        <Box title="Add a pack">
-          <p>Submit the rarity of the cards in the pack you just opened</p>
-          <PackOpener
-            pack={pack}
-            onGemClick={index => this.incrementRarity(index)}
-            set={sets[setIndex]}
-            onSetClick={() => this.incrementSet()}
-          />
+        <InputSection
+          set={sets[setIndex]}
+          onSetClick={() => this.incrementSet()}
+          pack={pack}
+          onGemClick={index => this.incrementRarity(index)}
+          onSubmit={() => this.submit()}
+        />
 
-          <CardButton onClick={() => this.submit()}>Submit</CardButton>
-        </Box>
-
-        <TimerSection>
-          <p>
-            Indicators for when you will open your next Epic or Legendary card
-          </p>
-
-          <TimerGrid>
-            {sets.map((set, i) => (
-              <Timer
-                key={i}
-                set={set}
-                legendariesOpened={timers[set] ? timers[set].legendary : 0}
-                epicsOpened={timers[set] ? timers[set].epic : 0}
-              />
-            ))}
-          </TimerGrid>
-        </TimerSection>
+        <TimerSection sets={sets} timers={timers} />
       </Wrapper>
     )
   }

@@ -12,11 +12,6 @@ const Wrapper = styled.div`
   grid-gap: 15px;
   align-items: center;
 
-  grid-template-areas:
-    'pack'
-    'legendaries'
-    'epics';
-
   grid-template-columns: 120px auto;
   grid-template-areas:
     'pack legendaries'

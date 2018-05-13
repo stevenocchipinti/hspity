@@ -1,7 +1,5 @@
-import React, {Component, createRef} from 'react'
+import React, {Component} from 'react'
 import styled from 'styled-components'
-
-import {PackButton} from '../Pack'
 
 import common from './rarity-common.png'
 import rare from './rarity-rare.png'
@@ -10,28 +8,12 @@ import legendary from './rarity-legendary.png'
 
 const gems = {common, rare, epic, legendary}
 
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: stretch;
-  flex-direction: column;
-  margin-top: 30px;
-
-  @media (min-width: 600px) {
-    flex-direction: row;
-  }
-`
-
 const Gems = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-grow: 1;
   margin: 40px 0 30px;
-`
-
-const FlexPack = styled(PackButton)`
-  margin: 0 auto;
 `
 
 const Gem = styled.button`
@@ -58,33 +40,21 @@ const Gem = styled.button`
 `
 
 class PackOpener extends Component {
-  constructor(props) {
-    super(props)
-    this.packButton = createRef()
-  }
-
-  componentDidMount() {
-    this.packButton.current.focus()
-  }
-
   render() {
-    const {onSetClick, set, pack, onGemClick} = this.props
+    const {pack, onGemClick} = this.props
 
     return (
-      <Wrapper>
-        <FlexPack innerRef={this.packButton} onClick={onSetClick} set={set} />
-        <Gems>
-          {pack.map(({rarity, golden}, i) => (
-            <Gem
-              key={i}
-              alt={rarity}
-              golden={golden}
-              rarity={rarity}
-              onClick={() => onGemClick(i)}
-            />
-          ))}
-        </Gems>
-      </Wrapper>
+      <Gems>
+        {pack.map(({rarity, golden}, i) => (
+          <Gem
+            key={i}
+            alt={rarity}
+            golden={golden}
+            rarity={rarity}
+            onClick={() => onGemClick(i)}
+          />
+        ))}
+      </Gems>
     )
   }
 }
