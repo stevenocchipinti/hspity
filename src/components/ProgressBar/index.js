@@ -88,11 +88,11 @@ const Text = styled.div`
   padding-right: 20px;
 `
 
-const ProgressBar = ({rarity, numerator, denominator}) => {
+const ProgressBar = ({rarity, numerator, denominator, className}) => {
   const percentage = Math.abs(numerator / denominator)
 
   return (
-    <Wrapper>
+    <Wrapper className={className}>
       <Head rarity={rarity} />
       <FullBar percentage={percentage}>
         <Smoke />
