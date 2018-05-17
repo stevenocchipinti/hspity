@@ -39,6 +39,7 @@ const FullBar = styled.div`
   flex-grow: ${props => props.percentage};
   margin-left: -3px;
   overflow: hidden;
+  transition: all 1s;
 `
 const Smoke = styled.div`
   position: absolute;
@@ -70,6 +71,7 @@ const Indicator = styled.div`
 const EmptyBar = styled.div`
   background-image: url(${empty});
   flex-grow: ${props => props.percentage};
+  transition: all 1s;
 `
 const Cap = styled.div`
   background-image: url(${cap});

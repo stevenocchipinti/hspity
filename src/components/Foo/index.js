@@ -1,36 +1,41 @@
 import React, {Component} from 'react'
 import styled from 'styled-components'
 
-import {TweenLite, Elastic} from 'gsap'
+import {TweenLite, TimelineLite, Elastic, Power4, Back} from 'gsap'
 import TransitionGroup from 'react-addons-transition-group'
 
 import ProgressBar from '../ProgressBar'
 
 const FlexProgressBar = styled(ProgressBar)`
   width: 300px;
+}
 `
 
-const hiddenStyle = {
-  transform: 'translateY(300px)',
-  opacity: 0,
-}
-
 class Bar extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {progress: 25}
+    this.hiddenStyle = {transform: 'translateY(300px)', opacity: 0}
+  }
+
   componentWillEnter(callback) {
-    TweenLite.from('.bar', 1, {
-      ...hiddenStyle,
-      ease: Elastic.easeOut.config(1, 0.5),
-      onComplete: () => {
-        callback()
-        this.props.onComplete()
-      },
-    })
+    this.tl = new TimelineLite()
+      .from('.bar', 1, {
+        ...this.hiddenStyle,
+        ease: Elastic.easeOut.config(1, 0.5),
+      })
+      .addLabel('bar')
+      .add(() => this.setState({progress: 30}), 'bar') // This takes 1 second via CSS
+      .to('.bar', 0.2, {transform: 'scale(1.1)', ease: Power4.easeIn}, 'bar')
+      .to('.bar', 0.8, {transform: 'scale(1)', ease: Power4.easeOut})
+      .add(() => this.props.onComplete(), '+=0.5')
+    callback()
   }
 
   componentWillLeave(callback) {
-    TweenLite.to('.bar', 1, {
-      ...hiddenStyle,
-      ease: Elastic.easeIn.config(3, 0.5),
+    TweenLite.to('.bar', 0.5, {
+      ...this.hiddenStyle,
+      ease: Back.easeIn.config(2),
       onComplete: callback,
     })
   }
@@ -39,7 +44,7 @@ class Bar extends Component {
     return (
       <FlexProgressBar
         rarity="legendary"
-        numerator={25}
+        numerator={this.state.progress}
         denominator={40}
         className="bar"
       />
