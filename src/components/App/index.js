@@ -6,6 +6,7 @@ import 'firebase/firestore'
 import Homepage from '../Homepage'
 import InputSection from './InputSection'
 import TimerSection from './TimerSection'
+import Foo from '../Foo'
 
 import {
   defaultPack,
@@ -40,23 +41,23 @@ class App extends Component {
     user: null,
   }
 
-  componentDidMount() {
-    Firebase.firestore().settings({timestampsInSnapshots: true})
-    Firebase.auth().onAuthStateChanged(user => {
-      localStorage.setItem('loggedIn', !!user)
-      if (!user) return
-      this.setState({user, loading: false})
-      this.firestoreRef = Firebase.firestore().doc(`users/${user.uid}`)
-      this.firestoreRef.onSnapshot(doc =>
-        this.setState({
-          timers: {
-            ...this.state.timers,
-            ...(doc.data() ? doc.data().timers : {}),
-          },
-        }),
-      )
-    })
-  }
+  // componentDidMount() {
+  //   Firebase.firestore().settings({timestampsInSnapshots: true})
+  //   Firebase.auth().onAuthStateChanged(user => {
+  //     localStorage.setItem('loggedIn', !!user)
+  //     if (!user) return
+  //     this.setState({user, loading: false})
+  //     this.firestoreRef = Firebase.firestore().doc(`users/${user.uid}`)
+  //     this.firestoreRef.onSnapshot(doc =>
+  //       this.setState({
+  //         timers: {
+  //           ...this.state.timers,
+  //           ...(doc.data() ? doc.data().timers : {}),
+  //         },
+  //       }),
+  //     )
+  //   })
+  // }
 
   login() {
     Firebase.auth().signInWithRedirect(new Firebase.auth.GoogleAuthProvider())
@@ -82,6 +83,7 @@ class App extends Component {
   }
 
   render() {
+    return <Foo />
     const {user, pack, setIndex, timers} = this.state
 
     if (!user)
