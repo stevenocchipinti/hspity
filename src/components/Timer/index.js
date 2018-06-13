@@ -4,13 +4,13 @@ import styled from 'styled-components'
 import {PackImage} from '../Pack'
 import ProgressBar from '../ProgressBar'
 
-const LEGENDARY_TIMER = 40
-const EPIC_TIMER = 10
+import {LEGENDARY_TIMER, EPIC_TIMER} from '../../helpers/timers'
 
 const Wrapper = styled.div`
   display: grid;
   grid-gap: 15px;
   align-items: center;
+  min-width: 320px;
 
   grid-template-columns: 120px auto;
   grid-template-areas:
@@ -21,6 +21,7 @@ const Wrapper = styled.div`
 const GridPack = styled(PackImage)`
   grid-area: pack;
   margin: 0 auto;
+  z-index: 1;
 `
 
 const GridLegendaries = styled(ProgressBar)`

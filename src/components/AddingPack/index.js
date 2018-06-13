@@ -1,8 +1,8 @@
-// TODO: Get rid of magic numbers!
 import React, {Component} from 'react'
 import styled from 'styled-components'
 
 import {TweenLite, TimelineLite, Elastic, Power4, Back} from 'gsap'
+import {LEGENDARY_TIMER, EPIC_TIMER} from '../../helpers/timers'
 
 import ProgressBar from '../ProgressBar'
 
@@ -89,13 +89,13 @@ class AddingPack extends Component {
         <FlexProgressBar
           rarity="legendary"
           numerator={this.state.progress.legendaries}
-          denominator={40}
+          denominator={LEGENDARY_TIMER}
           className="bar"
         />
         <FlexProgressBar
           rarity="epic"
           numerator={this.state.progress.epics}
-          denominator={10}
+          denominator={EPIC_TIMER}
           className="bar"
         />
       </Wrapper>

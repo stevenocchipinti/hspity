@@ -20,4 +20,7 @@ const addPackToTimers = (timers, pack, set) => {
   }
 }
 
-export {addPackToTimers}
+const LEGENDARY_TIMER = 40
+const EPIC_TIMER = 10
+
+export {addPackToTimers, LEGENDARY_TIMER, EPIC_TIMER}
