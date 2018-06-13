@@ -1,12 +1,13 @@
 import React, {Component} from 'react'
 import styled from 'styled-components'
+import TransitionGroup from 'react-addons-transition-group'
 import Firebase from 'firebase'
 import 'firebase/firestore'
 
 import Homepage from '../Homepage'
 import InputSection from './InputSection'
 import TimerSection from './TimerSection'
-import Foo from '../Foo'
+import AddingPack from '../AddingPack'
 
 import {
   defaultPack,
@@ -38,26 +39,27 @@ class App extends Component {
       return timers
     }, {}),
     loading: !!JSON.parse(localStorage.getItem('loggedIn')),
+    addingPack: {show: false},
     user: null,
   }
 
-  // componentDidMount() {
-  //   Firebase.firestore().settings({timestampsInSnapshots: true})
-  //   Firebase.auth().onAuthStateChanged(user => {
-  //     localStorage.setItem('loggedIn', !!user)
-  //     if (!user) return
-  //     this.setState({user, loading: false})
-  //     this.firestoreRef = Firebase.firestore().doc(`users/${user.uid}`)
-  //     this.firestoreRef.onSnapshot(doc =>
-  //       this.setState({
-  //         timers: {
-  //           ...this.state.timers,
-  //           ...(doc.data() ? doc.data().timers : {}),
-  //         },
-  //       }),
-  //     )
-  //   })
-  // }
+  componentDidMount() {
+    Firebase.firestore().settings({timestampsInSnapshots: true})
+    Firebase.auth().onAuthStateChanged(user => {
+      localStorage.setItem('loggedIn', !!user)
+      if (!user) return
+      this.setState({user, loading: false})
+      this.firestoreRef = Firebase.firestore().doc(`users/${user.uid}`)
+      this.firestoreRef.onSnapshot(doc =>
+        this.setState({
+          timers: {
+            ...this.state.timers,
+            ...(doc.data() ? doc.data().timers : {}),
+          },
+        }),
+      )
+    })
+  }
 
   login() {
     Firebase.auth().signInWithRedirect(new Firebase.auth.GoogleAuthProvider())
@@ -78,13 +80,19 @@ class App extends Component {
   submit() {
     const {timers, pack, setIndex} = this.state
     const newTimers = addPackToTimers(timers, pack, sets[setIndex])
+    this.setState({
+      addingPack: {
+        show: true,
+        oldTimers: timers[sets[setIndex]],
+        newTimers: newTimers[sets[setIndex]],
+      },
+    })
     this.firestoreRef.set({timers: newTimers}, {merge: true})
     this.setState({pack: defaultPack})
   }
 
   render() {
-    return <Foo />
-    const {user, pack, setIndex, timers} = this.state
+    const {user, pack, setIndex, timers, addingPack} = this.state
 
     if (!user)
       return (
@@ -102,6 +110,16 @@ class App extends Component {
         />
 
         <TimerSection sets={sets} timers={timers} />
+
+        <TransitionGroup>
+          {addingPack.show && (
+            <AddingPack
+              oldTimers={addingPack.oldTimers}
+              newTimers={addingPack.newTimers}
+              onComplete={() => this.setState({addingPack: {show: false}})}
+            />
+          )}
+        </TransitionGroup>
       </Wrapper>
     )
   }
