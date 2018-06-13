@@ -39,6 +39,7 @@ const FullBar = styled.div`
   flex-grow: ${props => props.percentage};
   margin-left: -3px;
   overflow: hidden;
+  transition: all 1s;
 `
 const Smoke = styled.div`
   position: absolute;
@@ -70,6 +71,7 @@ const Indicator = styled.div`
 const EmptyBar = styled.div`
   background-image: url(${empty});
   flex-grow: ${props => props.percentage};
+  transition: all 1s;
 `
 const Cap = styled.div`
   background-image: url(${cap});
@@ -88,11 +90,11 @@ const Text = styled.div`
   padding-right: 20px;
 `
 
-const ProgressBar = ({rarity, numerator, denominator}) => {
+const ProgressBar = ({rarity, numerator, denominator, className}) => {
   const percentage = Math.abs(numerator / denominator)
 
   return (
-    <Wrapper>
+    <Wrapper className={className}>
       <Head rarity={rarity} />
       <FullBar percentage={percentage}>
         <Smoke />

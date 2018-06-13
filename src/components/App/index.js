@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
 import styled from 'styled-components'
+import TransitionGroup from 'react-addons-transition-group'
 import Firebase from 'firebase'
 import 'firebase/firestore'
 
 import Homepage from '../Homepage'
 import InputSection from './InputSection'
 import TimerSection from './TimerSection'
+import AddingPack from '../AddingPack'
 
 import {
   defaultPack,
@@ -37,6 +39,7 @@ class App extends Component {
       return timers
     }, {}),
     loading: !!JSON.parse(localStorage.getItem('loggedIn')),
+    addingPack: {show: false},
     user: null,
   }
 
@@ -77,12 +80,19 @@ class App extends Component {
   submit() {
     const {timers, pack, setIndex} = this.state
     const newTimers = addPackToTimers(timers, pack, sets[setIndex])
+    this.setState({
+      addingPack: {
+        show: true,
+        oldTimers: timers[sets[setIndex]],
+        newTimers: newTimers[sets[setIndex]],
+      },
+    })
     this.firestoreRef.set({timers: newTimers}, {merge: true})
     this.setState({pack: defaultPack})
   }
 
   render() {
-    const {user, pack, setIndex, timers} = this.state
+    const {user, pack, setIndex, timers, addingPack} = this.state
 
     if (!user)
       return (
@@ -100,6 +110,16 @@ class App extends Component {
         />
 
         <TimerSection sets={sets} timers={timers} />
+
+        <TransitionGroup>
+          {addingPack.show && (
+            <AddingPack
+              oldTimers={addingPack.oldTimers}
+              newTimers={addingPack.newTimers}
+              onComplete={() => this.setState({addingPack: {show: false}})}
+            />
+          )}
+        </TransitionGroup>
       </Wrapper>
     )
   }
