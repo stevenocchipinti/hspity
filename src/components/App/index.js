@@ -9,6 +9,8 @@ import InputSection from './InputSection'
 import TimerSection from './TimerSection'
 import AddingPack from '../AddingPack'
 
+import Demo from '../Demo'
+
 import {
   defaultPack,
   incrementSetIndex,
@@ -93,6 +95,8 @@ class App extends Component {
 
   render() {
     const {user, pack, setIndex, timers, addingPack} = this.state
+
+    if (window.location.href.includes('demo')) return <Demo />
 
     if (!user)
       return (
