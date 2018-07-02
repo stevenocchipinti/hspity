@@ -48,7 +48,6 @@ const Smoke = styled.div`
   left: 0;
   right: 0;
   background-image: url(${smoke});
-  height: 560px;
   width: 5076px;
   animation: slide 120s linear infinite;
   @keyframes slide {
@@ -90,19 +89,31 @@ const Text = styled.div`
   padding-right: 20px;
 `
 
-const ProgressBar = ({rarity, numerator, denominator, className}) => {
+const ProgressBar = ({
+  rarity,
+  numerator,
+  denominator,
+  headClassName = '',
+  fullClassName = '',
+  smokeClassName = '',
+  indicatorClassName = '',
+  emptyClassName = '',
+  capClassName = '',
+  textClassName = '',
+  ...props
+}) => {
   const percentage = Math.abs(numerator / denominator)
 
   return (
-    <Wrapper className={className}>
-      <Head rarity={rarity} />
-      <FullBar percentage={percentage}>
-        <Smoke />
+    <Wrapper {...props}>
+      <Head className={headClassName} rarity={rarity} />
+      <FullBar className={fullClassName} percentage={percentage}>
+        <Smoke className={smokeClassName} />
       </FullBar>
-      <Indicator visible={percentage < 1} />
-      <EmptyBar percentage={1 - percentage} />
-      <Cap />
-      <Text>{denominator - numerator} left</Text>
+      <Indicator className={indicatorClassName} visible={percentage < 1} />
+      <EmptyBar className={emptyClassName} percentage={1 - percentage} />
+      <Cap className={capClassName} />
+      <Text className={textClassName}>{denominator - numerator} left</Text>
     </Wrapper>
   )
 }

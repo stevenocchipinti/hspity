@@ -7,17 +7,19 @@ import {
   Redirect,
 } from 'react-router-dom'
 
-import Controls from './controls'
+import Controls from './Controls'
 
 import Slide1 from './slide1.js'
 import Slide2 from './slide2.js'
 import Slide3 from './slide3.js'
 import Slide4 from './slide4.js'
+import Slide5 from './slide5.js'
 
-const slides = [Slide1, Slide2, Slide3, Slide4]
+const slides = [Slide1, Slide2, Slide3, Slide4, Slide5]
 
 const Layout = styled.main`
   text-align: center;
+  font-weight: 100;
 `
 
 export default slide => (

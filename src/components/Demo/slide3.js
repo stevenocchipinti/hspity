@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {TimelineLite, Elastic} from 'gsap'
 import styled from 'styled-components'
-import Container from './container'
+import Container from './Container'
 import Box from '../Box'
 import velvet from '../Box/velvet.jpg'
 
@@ -49,6 +49,9 @@ const ExplodingBox = styled(Box)`
       transition: margin 1s;
       margin: 10px;
     }
+    & > div {
+      border: 1px solid blue;
+    }
   }
 `
 
@@ -66,7 +69,14 @@ export default class Slide extends Component {
     return (
       <div>
         <h2>The Box</h2>
-        <p>Corner pieces and repeated patterns</p>
+        <p>
+          Gimp filter for <b>repeated patterns</b> then touch up with clone
+          stamp
+        </p>
+        <p>
+          <b>Flexbox</b> instead of <b>CSS Grid</b> for browser support based...
+          not that I really cared
+        </p>
         <Container direction="column">
           <Tiles
             onMouseEnter={() => this.tl.play()}
