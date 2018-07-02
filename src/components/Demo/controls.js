@@ -25,13 +25,13 @@ const RightButton = styled(Button)`
 
 class Controls extends Component {
   callbacks = e => {
-    const actions = {
+    const action = {
       37: () => this.goToPrevSlide(), // Left
       39: () => this.goToNextSlide(), // Right
       72: () => this.goToPrevSlide(), // h
       76: () => this.goToNextSlide(), // l
-    }
-    actions[e.keyCode]()
+    }[e.keyCode]
+    action && action()
   }
 
   componentDidMount() {
@@ -65,7 +65,6 @@ class Controls extends Component {
   render() {
     return (
       <div>
-        <h1>Demo</h1>
         <LeftButton
           disabled={!this.prevSlide()}
           onClick={() => this.goToPrevSlide()}

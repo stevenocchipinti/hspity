@@ -7,7 +7,7 @@ import {
   Redirect,
 } from 'react-router-dom'
 
-import Controls from '../Controls'
+import Controls from './controls'
 
 import Slide1 from './slide1.js'
 import Slide2 from './slide2.js'
