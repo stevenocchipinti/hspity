@@ -1,12 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import CircularProgress from '../CircularProgress'
-
-const Container = styled.div`
-  margin-top: 100px;
-  display: flex;
-  justify-content: center;
-`
+import Container from './container'
 
 const Spinner = styled(CircularProgress)`
   &:hover {

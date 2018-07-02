@@ -2,12 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import myHearthstone from '../Homepage/heading.png'
 import realHearthstone from './hearthstone-logo.jpg'
-
-const Container = styled.div`
-  margin-top: 100px;
-  display: flex;
-  justify-content: center;
-`
+import Container from './container'
 
 const Heading = styled.img`
   position: absolute;
