@@ -35,10 +35,14 @@ const Full = styled.div`
   }
 `
 
-const CircularProgress = () => (
-  <Wrapper>
-    <Empty />
-    <Full />
+const CircularProgress = ({
+  emptyClassName = '',
+  fullClassName = '',
+  ...props
+}) => (
+  <Wrapper {...props}>
+    <Empty className={emptyClassName} />
+    <Full className={fullClassName} />
   </Wrapper>
 )
 
