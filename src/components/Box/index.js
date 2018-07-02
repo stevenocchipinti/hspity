@@ -95,8 +95,8 @@ const Body = styled.div`
   align-items: stretch;
 `
 
-const FancyBox = ({title, children}) => (
-  <Box>
+const FancyBox = ({title, children, ...props}) => (
+  <Box {...props}>
     <BoxSegment>
       <LeftCorner />
       <TopSpacer />

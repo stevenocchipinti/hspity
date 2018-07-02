@@ -7,7 +7,7 @@ const Spinner = styled(CircularProgress)`
   &:hover {
     .spinner-empty {
       transition: transform 1s;
-      transform: translateX(-200px);
+      transform: translateY(200px);
       border: 1px solid red;
     }
     .spinner-full {

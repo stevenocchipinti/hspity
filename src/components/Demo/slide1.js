@@ -13,13 +13,17 @@ const Heading = styled.img`
   }
 `
 
+const FixedContainer = styled(Container)`
+  height: 500px;
+`
+
 export default () => (
   <div>
     <h2>The logo</h2>
     <p>All the gimp</p>
-    <Container>
+    <FixedContainer>
       <Heading hideable src={myHearthstone} alt="HS Pity" />
       <Heading src={realHearthstone} alt="HS Pity" />
-    </Container>
+    </FixedContainer>
   </div>
 )
