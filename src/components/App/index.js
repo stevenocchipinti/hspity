@@ -23,8 +23,9 @@ const Wrapper = styled.div`
 `
 
 const sets = [
-  'theWitchwood',
+  'theBoomsdayProject',
   'classic',
+  'theWitchwood',
   'kobaldsAndCatacombs',
   'knightsOfTheFrozenThrone',
   'journeyToUngoro',

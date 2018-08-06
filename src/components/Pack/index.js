@@ -6,6 +6,7 @@ import journeyToUngoro from './JourneyToUngoro.png'
 import knightsOfTheFrozenThrone from './KnightsOfTheFrozenThrone.png'
 import kobaldsAndCatacombs from './KobaldsAndCatacombs.png'
 import theWitchwood from './TheWitchwood.png'
+import theBoomsdayProject from './TheBoomsdayProject.png'
 
 const sets = {
   classic,
@@ -13,6 +14,7 @@ const sets = {
   knightsOfTheFrozenThrone,
   kobaldsAndCatacombs,
   theWitchwood,
+  theBoomsdayProject,
 }
 
 // Based on the pack image dimensions
